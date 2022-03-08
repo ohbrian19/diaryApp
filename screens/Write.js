@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import { Alert } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Alert, DatePickerIOSBase } from "react-native";
 import styled from "styled-components";
 import colors from "../colors";
+import { useDB } from "../context";
 
 const View = styled.View`
   background-color: ${colors.bgColor};
@@ -59,7 +60,9 @@ const EmotionText = styled.Text`
 
 const emotions = ["😀", "😱", "😂", "😕", "😍"];
 
-const Write = () => {
+const Write = ({ navigation: { goBack } }) => {
+  const realm = useDB();
+
   const [selectedEmotion, setEmotion] = useState(null);
   const [feelings, setFeelings] = useState(null);
   const onChangeText = (text) => {
@@ -72,6 +75,14 @@ const Write = () => {
     if (feelings === "" || selectedEmotion === null) {
       return Alert.alert("complete form");
     }
+    realm.write(() => {
+      realm.create("Feeling", {
+        _id: Date.now(),
+        emotion: selectedEmotion,
+        message: feelings,
+      });
+    });
+    goBack();
   };
   return (
     <View>

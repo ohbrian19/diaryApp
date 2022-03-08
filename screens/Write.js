@@ -107,7 +107,7 @@ const Write = ({ navigation: { goBack } }) => {
         placeholderTextColor="lightgrey"
       />
       <Btn onPress={onSubmit}>
-        <BtnText>hi</BtnText>
+        <BtnText>Save</BtnText>
       </Btn>
     </View>
   );

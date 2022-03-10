@@ -75,9 +75,12 @@ const Home = ({ navigation: { navigate } }) => {
   return (
     <View>
       <Title>Journal</Title>
-      <AdMobBanner adUnitID="ca-app-pub-3940256099942544/2934735716" />
+      <AdMobBanner
+        bannerSize="fullBanner"
+        adUnitID="ca-app-pub-3940256099942544/2934735716"
+      />
       <FlatList
-        style={{ marginVertical: 100 }}
+        style={{ marginVertical: 100, width: "100%" }}
         data={feelings}
         contentContainerStyle={{ paddingVertical: 10 }}
         ItemSeparatorComponent={Separator}

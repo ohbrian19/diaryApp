@@ -1,3 +1,4 @@
+import { AdMobInterstitial } from "expo-ads-admob";
 import React, { useEffect, useState } from "react";
 import { Alert, DatePickerIOSBase } from "react-native";
 import styled from "styled-components";
@@ -71,7 +72,7 @@ const Write = ({ navigation: { goBack } }) => {
   const onEmotionPress = (face) => {
     setEmotion(face);
   };
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (feelings === "" || selectedEmotion === null) {
       return Alert.alert("complete form");
     }
@@ -82,7 +83,12 @@ const Write = ({ navigation: { goBack } }) => {
         message: feelings,
       });
     });
-    goBack();
+    // goBack();
+    await AdMobInterstitial.setAdUnitID(
+      "ca-app-pub-3940256099942544/4411468910"
+    );
+    await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: true });
+    await AdMobInterstitial.showAdAsync();
   };
   return (
     <View>
